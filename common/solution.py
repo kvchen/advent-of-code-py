@@ -1,20 +1,33 @@
+from dataclasses import dataclass
 from enum import StrEnum
 from typing import Protocol, TextIO, ClassVar
 
 
-class BaseSolution[TParsed](Protocol):
-    _registry: "ClassVar[dict[tuple[int, int], BaseSolution[object]]]" = {}
+@dataclass(kw_only=True, frozen=True)
+class RegistryKey:
+    year: int
+    day: int
+
+
+class SolutionBase[TParsed](Protocol):
+    _registry: "ClassVar[dict[RegistryKey, SolutionBase[object]]]" = {}
 
     class Part(StrEnum):
         ONE = "one"
         TWO = "two"
 
     def __init_subclass__(cls, year: int, day: int):
-        cls._registry[(year, day)] = cls  # type: ignore
+        registry_key = RegistryKey(year=year, day=day)
+        assert (
+            registry_key not in cls._registry
+        ), f"A solution already exists for day {day}, year {year}"
+
+        cls._registry[registry_key] = cls  # type: ignore
 
     @classmethod
-    def get_solution(cls, year: int, day: int) -> "BaseSolution[object]":
-        return cls._registry[(year, day)]
+    def get_solution(cls, year: int, day: int) -> "SolutionBase[object]":
+        registry_key = RegistryKey(year=year, day=day)
+        return cls._registry[registry_key]
 
     @staticmethod
     def parse_input(infile: TextIO) -> TParsed: ...

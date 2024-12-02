@@ -1,13 +1,13 @@
 from collections import Counter
 from typing import TextIO
 
-from common.solution import BaseSolution
+from common.solution import SolutionBase
 
 
 TParsed = tuple[list[int], list[int]]
 
 
-class Solution(BaseSolution[TParsed], year=2024, day=1):
+class Solution(SolutionBase[TParsed], year=2024, day=1):
     @staticmethod
     def parse_input(infile: TextIO) -> TParsed:
         left: list[int] = []
