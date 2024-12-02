@@ -29,14 +29,14 @@ class SolutionBase[TParsed](Protocol):
         registry_key = RegistryKey(year=year, day=day)
         return cls._registry[registry_key]
 
-    @staticmethod
-    def parse_input(infile: TextIO) -> TParsed: ...
+    @classmethod
+    def parse_input(cls, infile: TextIO) -> TParsed: ...
 
-    @staticmethod
-    def part_01(parsed_input: TParsed) -> int: ...
+    @classmethod
+    def part_01(cls, parsed_input: TParsed) -> int: ...
 
-    @staticmethod
-    def part_02(parsed_input: TParsed) -> int: ...
+    @classmethod
+    def part_02(cls, parsed_input: TParsed) -> int: ...
 
     @classmethod
     def solve(cls, infile: TextIO, part: Part) -> int:

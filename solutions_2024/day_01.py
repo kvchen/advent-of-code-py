@@ -8,8 +8,8 @@ TParsed = tuple[list[int], list[int]]
 
 
 class Solution(SolutionBase[TParsed], year=2024, day=1):
-    @staticmethod
-    def parse_input(infile: TextIO) -> TParsed:
+    @classmethod
+    def parse_input(cls, infile: TextIO) -> TParsed:
         left: list[int] = []
         right: list[int] = []
 
@@ -20,8 +20,8 @@ class Solution(SolutionBase[TParsed], year=2024, day=1):
 
         return left, right
 
-    @staticmethod
-    def part_01(parsed_input: TParsed) -> int:
+    @classmethod
+    def part_01(cls, parsed_input: TParsed) -> int:
         left, right = parsed_input
         sorted_left = sorted(left)
         sorted_right = sorted(right)
@@ -32,8 +32,8 @@ class Solution(SolutionBase[TParsed], year=2024, day=1):
 
         return total
 
-    @staticmethod
-    def part_02(parsed_input: TParsed) -> int:
+    @classmethod
+    def part_02(cls, parsed_input: TParsed) -> int:
         left, right = parsed_input
         counter_right = Counter(right)
 
