@@ -34,7 +34,6 @@ class Solution(SolutionBase[TParsed], year=2024, day=2):
 
         return num_safe_reports
 
-
     @classmethod
     def is_safe(cls, report: list[int]) -> bool:
         if report[0] == report[1]:
@@ -62,11 +61,11 @@ class Solution(SolutionBase[TParsed], year=2024, day=2):
 
         # TODO(@keffcat): Brute force for now.
         # This can be done more efficiently by comparing against adjacent values.
-        # Always attempt to greedily remove problematic values t
+        # Always attempt to greedily remove problematic values.
 
         for idx in range(len(report)):
-            damped_report = report[:idx] + report[idx+1:]
+            damped_report = report[:idx] + report[idx + 1 :]
             if cls.is_safe(damped_report):
                 return True
-        
+
         return False
