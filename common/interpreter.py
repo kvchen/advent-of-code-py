@@ -56,7 +56,6 @@ class InterpreterBase(Protocol):
         for instruction in self._instructions(infile):
             self.handle(instruction)
 
-
     def _instructions(self, infile: TextIO) -> Iterator[InstructionBase]:
         for line in infile:
             for match in re.finditer(self._tokenizer_pattern(), line):

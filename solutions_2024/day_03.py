@@ -5,7 +5,7 @@ from common.interpreter import (
     DoInstruction,
     DontInstruction,
     MulInstruction,
-    InstructionBase
+    InstructionBase,
 )
 from common.solution import SolutionBase
 
@@ -16,7 +16,7 @@ TParsed = TextIO
 class Part01Interpreter(InterpreterBase):
     def __init__(self):
         self.total = 0
-    
+
     def handle(self, instruction: InstructionBase):
         match instruction:
             case MulInstruction(x, y):
@@ -29,7 +29,7 @@ class Part02Interpreter(InterpreterBase):
     def __init__(self):
         self.total = 0
         self.is_mul_enabled = True
-    
+
     def handle(self, instruction: InstructionBase):
         match instruction:
             case MulInstruction(x, y):
@@ -41,7 +41,6 @@ class Part02Interpreter(InterpreterBase):
                 self.is_mul_enabled = False
             case _:
                 pass
-
 
 
 class Solution(SolutionBase[TParsed], year=2024, day=3):
