@@ -26,7 +26,7 @@ class Update:
     def to_sorted(self, rules: PageRules) -> Self:
         sorted_pages = sorted(self.pages, key=cmp_to_key(rules.page_comparator))
         return Update(pages=sorted_pages)
-    
+
     def midpoint_value(self) -> int:
         mid_idx = len(self.pages) // 2
         return self.pages[mid_idx]
