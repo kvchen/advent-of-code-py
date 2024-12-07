@@ -140,7 +140,7 @@ class Solution(SolutionBase[TParsed], year=2024, day=6):
 
                     previous_states.add(test_guard)
                     test_guard = test_guard.move(map_with_obstruction)
-                
+
                 if caused_loop:
                     total += 1
 
