@@ -37,11 +37,11 @@ class Solution(SolutionBase[TParsed], year=2024, day=8):
         antennas: dict[str, set[Position]] = defaultdict(set)
         for row, line in enumerate(infile):
             for col, char in enumerate(line.strip()):
-                if char not in {'.', '#'}:
+                if char not in {".", "#"}:
                     position = Position(row, col)
                     antennas[char].add(position)
 
-        map = Map(width=col+1, height=row+1, antennas=antennas)  # type: ignore
+        map = Map(width=col + 1, height=row + 1, antennas=antennas)  # type: ignore
         return map
 
     @classmethod
