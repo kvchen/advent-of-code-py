@@ -31,29 +31,23 @@ class TopographicMap:
                 if height == 0:
                     yield Position(row_idx, col_idx)
 
-    def num_paths_from(self, position: Position) -> int:
+    def reachable_paths(self, position: Position) -> list[list[Position]]:
         height = self.height_at(position)
         if height == 9:
-            return 1
+            return [[position]]
 
-        num_paths = 0
+        paths: list[list[Position]] = []
         for direction in Direction:
             next_position = position.with_offset(direction.offset)
-            if self.in_bounds(next_position) and self.height_at(next_position) == (height + 1):
-                num_paths += self.num_paths_from(next_position)
-        return num_paths
+            if not self.in_bounds(next_position):
+                continue
 
-    def reachable_peaks(self, position: Position) -> set[Position]:
-        height = self.height_at(position)
-        if height == 9:
-            return {position}
+            if self.height_at(next_position) == (height + 1):
+                paths.extend(
+                    [position] + path for path in self.reachable_paths(next_position)
+                )
 
-        peaks: set[Position] = set()
-        for direction in Direction:
-            next_position = position.with_offset(direction.offset)
-            if self.in_bounds(next_position) and self.height_at(next_position) == (height + 1):
-                peaks = peaks.union(self.reachable_peaks(next_position))
-        return peaks
+        return paths
 
 
 TParsed = TopographicMap
@@ -73,15 +67,15 @@ class Solution(SolutionBase[TParsed], year=2024, day=10):
     def part_01(cls, parsed_input: TParsed) -> int:
         total = 0
         for trailhead_position in parsed_input.trailheads:
-            peaks = parsed_input.reachable_peaks(trailhead_position)
+            peaks: set[Position] = set()
+            for path in parsed_input.reachable_paths(trailhead_position):
+                peaks.add(path[-1])
             total += len(peaks)
-
         return total
 
     @classmethod
     def part_02(cls, parsed_input: TParsed) -> int:
         total = 0
         for trailhead_position in parsed_input.trailheads:
-            total += parsed_input.num_paths_from(trailhead_position)
-
+            total += len(parsed_input.reachable_paths(trailhead_position))
         return total
