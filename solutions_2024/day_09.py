@@ -24,7 +24,7 @@ class DiskMap:
     chunks: list[Chunk]
 
     def __str__(self) -> str:
-        return ''.join(str(chunk) for chunk in self.chunks)
+        return "".join(str(chunk) for chunk in self.chunks)
 
     def compress_blocks(self) -> "DiskMap":
         compressed_map = deepcopy(self)
@@ -45,7 +45,7 @@ class DiskMap:
         return compressed_map
 
     def compress_files(self) -> "DiskMap":
-        compressed_map = deepcopy(self)        
+        compressed_map = deepcopy(self)
 
         idx = len(compressed_map.chunks) - 1
         while idx > 0:
