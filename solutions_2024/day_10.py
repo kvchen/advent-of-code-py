@@ -2,47 +2,31 @@ from dataclasses import dataclass
 from typing import Iterator, TextIO
 
 from common.direction import Direction
+from common.grid import GridBase
 from common.solution import SolutionBase
 from common.position import Position
 
 
 @dataclass
-class TopographicMap:
-    height_map: list[list[int]]
-
-    @property
-    def width(self) -> int:
-        return len(self.height_map[0])
-
-    @property
-    def height(self) -> int:
-        return len(self.height_map)
-
-    def in_bounds(self, position: Position) -> bool:
-        return (0 <= position.row < self.height) and (0 <= position.col < self.width)
-
-    def height_at(self, position: Position) -> int:
-        return self.height_map[position.row][position.col]
-
+class TopographicMap(GridBase[int]):
     @property
     def trailheads(self) -> Iterator[Position]:
-        for row_idx, row in enumerate(self.height_map):
-            for col_idx, height in enumerate(row):
-                if height == 0:
-                    yield Position(row_idx, col_idx)
+        for position, value in iter(self):
+            if value == 0:
+                yield position
 
     def reachable_paths(self, position: Position) -> list[list[Position]]:
-        height = self.height_at(position)
+        height = self[position]
         if height == 9:
             return [[position]]
 
         paths: list[list[Position]] = []
         for direction in Direction:
             next_position = position.with_offset(direction.offset)
-            if not self.in_bounds(next_position):
+            if next_position not in self:
                 continue
 
-            if self.height_at(next_position) == (height + 1):
+            if self[next_position] == (height + 1):
                 paths.extend(
                     [position] + path for path in self.reachable_paths(next_position)
                 )
