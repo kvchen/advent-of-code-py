@@ -1,4 +1,4 @@
-from enum import Enum, auto
+from enum import auto, Enum
 from typing import Self
 
 
@@ -19,6 +19,18 @@ class Direction(Enum):
                 return Direction.WEST
             case Direction.WEST:
                 return Direction.NORTH
+
+    @property
+    def counterclockwise_direction(self) -> Self:
+        match self:
+            case Direction.NORTH:
+                return Direction.WEST
+            case Direction.EAST:
+                return Direction.NORTH
+            case Direction.SOUTH:
+                return Direction.EAST
+            case Direction.WEST:
+                return Direction.SOUTH
 
     @property
     def offset(self) -> tuple[int, int]:
