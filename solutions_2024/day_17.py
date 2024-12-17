@@ -162,11 +162,9 @@ class Solution(SolutionBase[TParsed], year=2024, day=17):
                 computer_copy.a = a
                 computer_copy.run_program(program)
 
-                if computer_copy.outputs == program:
+                if computer_copy.outputs[-idx - 1 :] == program[-idx - 1 :]:
                     break
-                elif computer_copy.outputs[-idx - 1 :] == program[-idx - 1 :]:
-                    break
-                else:
-                    a += 1
+
+                a += 1
 
         return a
