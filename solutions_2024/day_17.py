@@ -155,7 +155,7 @@ class Solution(SolutionBase[TParsed], year=2024, day=17):
         computer, program = parsed_input
 
         a = 0
-        for idx, target_value in enumerate(reversed(program)):
+        for idx in range(len(program)):
             a *= 8
             while True:
                 computer_copy = deepcopy(computer)
