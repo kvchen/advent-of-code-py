@@ -8,6 +8,7 @@ dependencies = [
     "click>=8.1.7",
     "networkx>=3.4.2",
     "numpy>=2.2.0",
+    "rust-just>=1.38.0",
 ]
 
 [tool.pyright]
