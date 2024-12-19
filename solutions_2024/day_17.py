@@ -131,13 +131,11 @@ class Solution(SolutionBase[TParsed], year=2024, day=17):
         return Computer(a, b, c), program
 
     @classmethod
-    def part_01(cls, parsed_input: TParsed) -> int:
+    def part_01(cls, parsed_input: TParsed) -> str:
         computer, program = parsed_input
         computer.run_program(program)
 
-        print(",".join(map(str, computer.outputs)))
-
-        return 0
+        return ",".join(map(str, computer.outputs))
 
     @classmethod
     def part_02(cls, parsed_input: TParsed) -> int:

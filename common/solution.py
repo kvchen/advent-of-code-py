@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from enum import StrEnum
-from typing import Protocol, TextIO, ClassVar
+from typing import ClassVar, Protocol, TextIO
 
 
 @dataclass(kw_only=True, frozen=True)
@@ -33,13 +33,13 @@ class SolutionBase[TParsed](Protocol):
     def parse_input(cls, infile: TextIO) -> TParsed: ...
 
     @classmethod
-    def part_01(cls, parsed_input: TParsed) -> int: ...
+    def part_01(cls, parsed_input: TParsed) -> object: ...
 
     @classmethod
-    def part_02(cls, parsed_input: TParsed) -> int: ...
+    def part_02(cls, parsed_input: TParsed) -> object: ...
 
     @classmethod
-    def solve(cls, infile: TextIO, part: Part) -> int:
+    def solve(cls, infile: TextIO, part: Part) -> object:
         parsed_input = cls.parse_input(infile)
 
         match part:
